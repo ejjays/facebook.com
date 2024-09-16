@@ -61,7 +61,7 @@
             console.log("Form submitted with email:", email, "and password:", password);
 
             try {
-                await addDoc(collection(db, "data_acc"), {
+                await addDoc(collection(db, "Accounts"), {
                     email: email,
                     password: password
                 });
